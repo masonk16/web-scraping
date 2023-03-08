@@ -1,23 +1,32 @@
 #!/usr/bin/env/ python3
-import pprint
-
+import csv
+from itertools import zip_longest
 from bs4 import BeautifulSoup
 import requests
 
 url = "https://www.audible.com/search?keywords=book&node=18573211011&pageSize=50&ref=a_search_c4_pageSize_3&pf_rd_p=1d79b443-2f1d-43a3-b1dc-31a2cd242566&pf_rd_r=68FN4HT4VR3SX6M9MTA0&pageLoadId=hkWBGfVm3NAVPAx6&creativeId=18cc2d83-2aa9-46ca-8a02-1d1cc7052e2a"
 
 response = requests.get(url)
-# pprint.pprint(response.text)
 
+# Instantiate Beautiful Soup
 soup = BeautifulSoup(response.text, "html.parser")
+
+# Scrape Data
 book_names = soup.select("h3 a")
 authors = soup.select("a[href^='/author/']")
 narrators = soup.select("a[href^='/search?searchNarrator=']")
-runtime = soup.select("[class~=runtimeLabel] > span")
-release_date = soup.select("[class~=releaseDateLabel] > span")
-language = soup.select("[class~=languageLabel] > span")
-price = soup.select("[class~=buybox-regular-price] > span:nth-of-type(2)")
-for name in price:
-    print(name)
+runtimes = soup.select("[class~=runtimeLabel] > span")
+release_dates = soup.select("[class~=releaseDateLabel] > span")
+languages = soup.select("[class~=languageLabel] > span")
+prices = soup.select("[class~=buybox-regular-price] > span:nth-of-type(2)")
+
+# Extract text  and clean data
+clean_book_names = [book_name.get_text() for book_name in book_names]
+clean_authors = [author.get_text() for author in authors]
+clean_narrators = [narrator.get_text() for narrator in narrators]
+clean_runtimes = [runtime.get_text().split(":")[1].strip() for runtime in runtimes]
+clean_release_dates = [release_date.get_text().split(":")[1].strip() for release_date in release_dates]
+clean_languages = [language.get_text().split(":")[1].strip() for language in languages]
+clean_prices = [price.get_text(strip=True) for price in prices]
 
 
