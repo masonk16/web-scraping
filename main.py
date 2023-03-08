@@ -6,3 +6,6 @@ url = "https://steamdb.info/charts/"
 
 response = requests.get(url)
 
+soup = BeautifulSoup(response.text, "html")
+
+
