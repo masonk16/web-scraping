@@ -14,7 +14,10 @@ book_names = soup.select("h3 a")
 authors = soup.select("a[href^='/author/']")
 narrators = soup.select("a[href^='/search?searchNarrator=']")
 runtime = soup.select("[class~=runtimeLabel] > span")
-for name in runtime:
+release_date = soup.select("[class~=releaseDateLabel] > span")
+language = soup.select("[class~=languageLabel] > span")
+price = soup.select("[class~=buybox-regular-price] > span:nth-of-type(2)")
+for name in price:
     print(name)
 
 
