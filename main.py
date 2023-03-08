@@ -26,9 +26,9 @@ clean_release_dates = [release_date.get_text().split(":")[1].strip() for release
 clean_languages = [language.get_text().split(":")[1].strip() for language in languages]
 clean_prices = [price.get_text(strip=True) for price in prices]
 
-# # Create csv file
-# with open('computers-and-technology-audiobooks.csv', 'w') as file:
-#     writer = csv.writer(file)
-#     writer.writerow(["Book Name", "Length" "Release Date", "Language", "Price"])
-#     for row in zip_longest(clean_book_names, clean_runtimes, clean_release_dates, clean_languages, clean_prices):
-#         writer.writerow(row)
+# Create csv file
+with open('computers-and-technology-audiobooks.csv', 'w') as file:
+    writer = csv.writer(file)
+    writer.writerow(["Book Name", "Length" "Release Date", "Language", "Price"])
+    for row in zip_longest(clean_book_names, clean_runtimes, clean_release_dates, clean_languages, clean_prices):
+        writer.writerow(row)
