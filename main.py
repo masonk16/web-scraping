@@ -13,7 +13,8 @@ soup = BeautifulSoup(response.text, "html.parser")
 book_names = soup.select("h3 a")
 authors = soup.select("a[href^='/author/']")
 narrators = soup.select("a[href^='/search?searchNarrator=']")
-for name in narrators:
+runtime = soup.select("[class~=runtimeLabel] > span")
+for name in runtime:
     print(name)
 
 
