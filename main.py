@@ -10,8 +10,10 @@ response = requests.get(url)
 # pprint.pprint(response.text)
 
 soup = BeautifulSoup(response.text, "html.parser")
-names = soup.select("h3 a")
-for name in names:
+book_names = soup.select("h3 a")
+authors = soup.select("a[href^='/author/']")
+narrators = soup.select("a[href^='/search?searchNarrator=']")
+for name in narrators:
     print(name)
 
 
